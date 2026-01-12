@@ -212,6 +212,63 @@
             box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
         }
 
+        /* Testimonials Section */
+        #testimonials {
+            background-color: #f9f9f9;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border-left: 5px solid var(--secondary-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .testimonial-card::before {
+            content: '\"';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            font-size: 3rem;
+            color: var(--secondary-color);
+            opacity: 0.3;
+        }
+
+        .testimonial-text {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 1rem;
+        }
+
+        .stars {
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
         /* Hours Section */
         #hours {
             background: linear-gradient(135deg, var(--primary-color), #2d2d2d);
@@ -424,6 +481,7 @@
             <nav>
                 <ul>
                     <li><a href="#about">About</a></li>
+                    <li><a href="#testimonials">Reviews</a></li>
                     <li><a href="#hours">Hours</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
@@ -470,6 +528,44 @@
                     </div>
                 </div>
                 <div class="about-image">✂️</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials">
+        <div class="container">
+            <h2>Customer Reviews</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <div class="testimonial-text">Cody always does such a great job both on my son and my boyfriend. They are also GREAT with kids!!!!</div>
+                    <div class="testimonial-author">— Jennifer Prevo</div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <div class="testimonial-text">Great Barber shop and friendly welcome there</div>
+                    <div class="testimonial-author">— Raul Barahona</div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <div class="testimonial-text">This was my 3rd visit. David was very personable and professional. I don't usually go to a barber but I may come here more often. My haircut was well done and he remembered what I wanted from the past visits. Everyone is nice and feels like you are with friends. Highly recommended!</div>
+                    <div class="testimonial-author">— WR Martin</div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <div class="testimonial-text">My husband and 2 kids get their hair cut here. The atmosphere is friendly and relaxed and the service is compassionate and timely. Kara is great with my two-year old! She's pretty much the baby whisperer and the only person I want to cut my family's hair!</div>
+                    <div class="testimonial-author">— Emily Martin</div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <div class="testimonial-text">I absolutely love this barber shop. I love the humor that we have there and especially the conversation's about Jesus. I love knowing that I can sit and relax and get a great hair cut and enjoy talking about my Lord and Saviour. Not to mention all of the other things that are talked about. If you need a good hair cut at a good price this is the place to go.</div>
+                    <div class="testimonial-author">— Brad Rock</div>
+                </div>
             </div>
         </div>
     </section>
