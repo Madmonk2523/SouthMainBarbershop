@@ -100,6 +100,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
         }
 
         .logo {
@@ -108,12 +109,67 @@
             color: var(--secondary-color);
             letter-spacing: 1px;
             animation: slideInLeft 0.8s ease;
+            z-index: 1001;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-phone {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border: 2px solid var(--secondary-color);
+            border-radius: 25px;
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        .nav-phone:hover {
+            background: var(--secondary-color);
+            color: var(--primary-color);
+            transform: scale(1.05);
         }
 
         nav ul {
             display: flex;
             list-style: none;
             gap: 2rem;
+            margin: 0;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            z-index: 1001;
+            padding: 0.5rem;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--secondary-color);
+            margin: 3px 0;
+            transition: all 0.3s ease;
+            border-radius: 3px;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(8px, -8px);
         }
 
         nav a {
@@ -677,8 +733,44 @@
 
         /* Responsive Design */
         @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                height: 100vh;
+                width: 70%;
+                max-width: 300px;
+                background: linear-gradient(135deg, var(--primary-color) 0%, #1a1a1a 100%);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 2rem;
+                transition: right 0.4s ease;
+                box-shadow: -5px 0 20px rgba(0,0,0,0.5);
+                z-index: 1000;
+                padding: 2rem;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
             nav ul {
-                gap: 1rem;
+                flex-direction: column;
+                align-items: center;
+                gap: 2rem;
+            }
+
+            nav a {
+                font-size: 1.2rem;
+            }
+
+            .nav-phone {
+                margin-top: 1rem;
             }
 
             .hero h1 {
@@ -704,17 +796,27 @@
             .map-section {
                 height: 300px;
             }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hours-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         @media (max-width: 480px) {
             .nav-container {
-                flex-direction: column;
-                gap: 1rem;
+                padding: 0 1rem;
             }
 
-            nav ul {
-                flex-wrap: wrap;
-                justify-content: center;
+            .logo {
+                font-size: 1.4rem;
             }
 
             .hero {
@@ -725,6 +827,23 @@
             .hero h1 {
                 font-size: 1.5rem;
             }
+
+            .hero p {
+                font-size: 0.9rem;
+            }
+
+            section {
+                padding: 50px 0;
+            }
+
+            section h2 {
+                font-size: 1.5rem;
+            }
+
+            .cta-button {
+                padding: 12px 25px;
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
@@ -733,14 +852,22 @@
     <header>
         <div class="nav-container">
             <div class="logo">✂️ South Main Barbershop</div>
-            <nav>
-                <ul>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#testimonials">Reviews</a></li>
-                    <li><a href="#hours">Hours</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="nav-links">
+                <nav>
+                    <ul>
+                        <li><a href="#about" onclick="closeMenu()">About</a></li>
+                        <li><a href="#testimonials" onclick="closeMenu()">Reviews</a></li>
+                        <li><a href="#hours" onclick="closeMenu()">Hours</a></li>
+                        <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
+                    </ul>
+                </nav>
+                <a href="tel:+13364982707" class="nav-phone">📞 (336) 498-2707</a>
+            </div>
         </div>
     </header>
 
@@ -919,6 +1046,33 @@
                     });
                 }
             });
+        });
+
+        // Hamburger menu toggle
+        function toggleMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            const hamburger = document.querySelector('.hamburger');
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+
+        function closeMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            const hamburger = document.querySelector('.hamburger');
+            navLinks.classList.remove('active');
+            hamburger.classList.remove('active');
+        }
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const navLinks = document.querySelector('.nav-links');
+            const hamburger = document.querySelector('.hamburger');
+            const isClickInsideNav = navLinks.contains(event.target);
+            const isClickOnHamburger = hamburger.contains(event.target);
+            
+            if (!isClickInsideNav && !isClickOnHamburger && navLinks.classList.contains('active')) {
+                closeMenu();
+            }
         });
 
         // Initialize on page load
